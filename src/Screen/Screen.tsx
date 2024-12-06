@@ -1,10 +1,7 @@
-import FaceLiveness from "@/Pages/FaceLiveness"
-import { AlatContextProvider } from "@/context/AlatContextProvider";
+import FaceLiveness from "@/Pages/FaceLiveness";
 const Screen = () => {
   return (
-    <AlatContextProvider>
     <FaceLiveness />
-    </AlatContextProvider>
   )
 }
 

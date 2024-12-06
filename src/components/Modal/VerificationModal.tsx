@@ -55,14 +55,14 @@ const VerificationModal = ({
 
   return (
     <div className="fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
-      <div className={`bg-[#FFFFFF] rounded-[20px] relative flex flex-col gap-[15px] justify-center w-full md:w-[40%]  ${showImageUpload  ? "h-[65vh]" : "h-[50vh] "} p-[20px] `}>
-        <div className="flex justify-between">
+      <div className={`bg-[#FFFFFF] rounded-[20px] relative flex flex-col gap-[15px] justify-center w-full md:w-[40%]  ${showImageUpload  ? "h-auto" : "h-auto "} p-[20px] `}>
+        <div className="flex justify-between items-center">
           <p className="font-bold">Verification Method</p>
 
           <img
             src={close}
             alt="close"
-            className="cursor-pointer absolute top-5 right-5"
+            className="cursor-pointer "
             onClick={() => {
               setPopup?.(false);
               localStorage.removeItem("NINDETAILS");

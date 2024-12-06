@@ -31,19 +31,24 @@ const SignIn = ({ setShowNinDetails }: SignInProps) => {
   };
   return (
     <div className=" fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
-      <div className="bg-[#FFFFFF] rounded-[20px]   h-[50vh]   w-full md:w-[40%] p-[20px] ">
-        <img
-          src={close}
-          onClick={closePopup}
-          alt="close"
-          className="cursor-pointer  float-right"
-        />
+      <div className="bg-[#FFFFFF] rounded-[20px]   h-auto   w-full md:w-[40%] p-[20px] ">
+      <div className="flex justify-between items-center mb-10">
+          <p className="font-bold">Login</p>
 
-        <div className="flex justify-center top-[30%] relative items-center flex-col gap-[15px]">
-          <p className="text-sm text-center w-[70%]">You need to Login with an INFINION account to use your NIN</p>
+          <img
+            src={close}
+            alt="close"
+            className="cursor-pointer "
+            onClick={closePopup}
+          />
+        </div>
+
+
+        <div className="flex justify-center top-[30%] relative items-center flex-col gap-[20px]">
+          <p className="text-sm text-center ">You need to Login with an INFINION account to use your NIN</p>
           <button
             onClick={() => handleLogin("redirect")}
-            className="bg-primary hover:shadow-lg   text-white h-[35px] w-[150px] rounded text-sm"
+            className="bg-primary hover:shadow-lg   text-white h-[52px] w-[90%] mt-4 rounded-[12px] text-sm"
           >
             Log in
           </button>
