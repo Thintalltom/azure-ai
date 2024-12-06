@@ -6,7 +6,6 @@ import  { useEffect, useRef, useState } from "react";
 import { fetchTokenFromAPI, fetchTokenfromApiWithNumber } from "./utils";
 import { FaceLivenessDetectorProps } from "@/Types";
 import ResultView from "@/components/Result/ResultView";
-import ErrrComp from "@/components/Error/ErrComp";
 import { useAlatContext } from "@/context/AlatContextProvider";
 export const FaceLivenessDetectorComponent = ({
   file,
