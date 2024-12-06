@@ -21,7 +21,7 @@ const Signout = () => {
     <div className="flex gap-[20px]  ">
       <button
         onClick={() => handleLogout("redirect")}
-        className="bg-[#004C55] hover:shadow-lg hover:bg-[#112e31e2]  text-white h-[35px] w-[150px] rounded text-sm"
+        className="bg-primary hover:shadow-lg   text-white h-[35px] w-[150px] rounded text-sm"
       >
         Log out
       </button>

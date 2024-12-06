@@ -45,6 +45,7 @@ export async function fetchTokenfromApiWithNumber(
   setApiError?:React.Dispatch<React.SetStateAction<string>>,
 ): Promise<void> {
 setApiError?.("");
+localStorage.removeItem("NINDETAILS");
   if (errors && setErrors) {
     setErrors(errors);
     console.error("Skipping API call due to existing error:", errors);

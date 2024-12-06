@@ -27,6 +27,7 @@ const SignIn = ({ setShowNinDetails }: SignInProps) => {
 
   const closePopup = () => {
     setShowNinDetails(false);
+    localStorage.removeItem("NINDETAILS");
   };
   return (
     <div className=" fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">

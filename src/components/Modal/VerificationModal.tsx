@@ -55,7 +55,7 @@ const VerificationModal = ({
 
   return (
     <div className="fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
-      <div className="bg-[#FFFFFF] rounded-[20px] flex flex-col gap-[15px] w-full md:w-[40%] p-[20px] ">
+      <div className={`bg-[#FFFFFF] rounded-[20px] flex flex-col gap-[15px] justify-center w-full md:w-[40%]  ${showImageUpload  ? "h-[65vh]" : "h-[50vh] "} p-[20px] `}>
         <div className="flex justify-between">
           <p className="font-bold">Verification Method</p>
 
@@ -65,6 +65,7 @@ const VerificationModal = ({
             className="cursor-pointer"
             onClick={() => {
               setPopup?.(false);
+              localStorage.removeItem("NINDETAILS");
             }}
           />
         </div>
