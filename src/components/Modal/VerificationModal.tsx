@@ -55,14 +55,14 @@ const VerificationModal = ({
 
   return (
     <div className="fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
-      <div className={`bg-[#FFFFFF] rounded-[20px] flex flex-col gap-[15px] justify-center w-full md:w-[40%]  ${showImageUpload  ? "h-[65vh]" : "h-[50vh] "} p-[20px] `}>
+      <div className={`bg-[#FFFFFF] rounded-[20px] relative flex flex-col gap-[15px] justify-center w-full md:w-[40%]  ${showImageUpload  ? "h-[65vh]" : "h-[50vh] "} p-[20px] `}>
         <div className="flex justify-between">
           <p className="font-bold">Verification Method</p>
 
           <img
             src={close}
             alt="close"
-            className="cursor-pointer"
+            className="cursor-pointer absolute top-5 right-5"
             onClick={() => {
               setPopup?.(false);
               localStorage.removeItem("NINDETAILS");
@@ -95,7 +95,7 @@ const VerificationModal = ({
                   />
                   <p>Liveness</p>
                 </label>
-                <label className="flex gap-[5px]">
+                <label className="flex gap-[5px] items-center">
                   <input
                     type="radio"
                     id="livenessAndVerify"
