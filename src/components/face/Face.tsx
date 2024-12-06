@@ -53,19 +53,51 @@ export const FaceLivenessDetectorComponent = ({
 
   // console.log("the error is:", errors);
   // Handle token fetch errors
+ 
+  
 
   useEffect(() => {
     if (!token && !loadingToken && fetchFailureCallback) {
       fetchFailureCallback(errorMessage);
     }
   }, [token, loadingToken, errorMessage, fetchFailureCallback]);
+
   useEffect(() => {
+    const customLanguage = {
+      "None": "Stay still.",
+      "LookAtCamera": "Look straight at camera.",
+      "FaceNotCentered": "Kindly Center your face in the preview circle.",
+      "MoveCloser": "Move in closer.",
+      "ContinueToMoveCloser": "Move more closer.",
+      "MoveBack": "Move farther away.",
+      "TooMuchMovement": "Reduce movement.",
+      "AttentionNotNeeded": "",
+      "Smile": "Smile please!",
+      "LookInFront": "Look straight.",
+      "LookUp": "Look up.",
+      "LookUpRight": "Look up-right.",
+      "LookUpLeft": "Look up-left.",
+      "LookRight": "Look right.",
+      "LookLeft": "Look left.",
+      "LookDown": "Look down.",
+      "LookDownRight": "Look down-right.",
+      "LookDownLeft": "Look down-left.",
+      "TimedOut": "Timed out.",
+      "IncreaseBrightnessToMax": " your screen brightness to maximum.",
+      "Tip1Title": "Tip 1:",
+      "Tip2Title": "Tip 2:",
+      "Tip3Title": "Tip 3:",
+      "Tip1": "Center your face in the preview. Make sure your eyes and mouth are visible, remove any obstructions like headphones.",
+      "Tip2": "You may be asked to smile.",
+      "Tip3": "You may be asked to move your nose towards the green color.",
+      "Continue": "Continue"
+  };
     const fetchData = async () => {
       var faceLivenessDetector = document.querySelector(
         "azure-ai-vision-face-ui"
       ) as FaceLivenessDetector;
-
       // Step 4: Create the FaceLivenessDetector element and attach it to DOM.
+      // faceLivenessDetector.languageDictionary = customLanguage
       if (faceLivenessDetector == null) {
         faceLivenessDetector = document.createElement(
           "azure-ai-vision-face-ui"
@@ -74,7 +106,7 @@ export const FaceLivenessDetectorComponent = ({
           containerRef.current.appendChild(faceLivenessDetector);
         }
       }
-
+      
       // Step 5: Start the FaceLivenessDetector session.
       faceLivenessDetector
         .start(token as string)
