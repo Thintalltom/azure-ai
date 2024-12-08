@@ -28,14 +28,14 @@ const RetryView = ({
         {continueFaceLivenessDetector ? (
           <button
             onClick={continueFaceLivenessDetector}
-            className="relative text-white bg-[#036ac4] flex justify-center items-center hover:bg-[#0473ce] w-[410px] h-[53px] rounded-[12px] text-sm md:text-[1.1rem]"
+            className="relative text-white bg-[#036ac4] flex justify-center items-center hover:bg-[#0473ce] w-full lg:w-[410px] h-[53px] rounded-[12px] text-sm md:text-[1.1rem]"
           >
             Retry
           </button>
         ) : (
           <button
             onClick={returnHome}
-            className="relative text-white bg-[#036ac4] flex justify-center items-center hover:bg-[#0473ce] w-[410px] h-[53px] rounded-[12px] text-sm md:text-[1.1rem]"
+            className="relative text-white bg-[#036ac4] flex justify-center items-center hover:bg-[#0473ce] w-full lg:w-[410px] h-[53px] rounded-[12px] text-sm md:text-[1.1rem]"
           >
             Retry
           </button>
