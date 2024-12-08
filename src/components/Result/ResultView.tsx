@@ -4,7 +4,7 @@ import { IoPersonSharp } from "react-icons/io5";
 import { ResultViewProps } from "@/Types";
 import success from "@/assets/gif/success.gif";
 import busted from "@/assets/gif/busted.gif";
-import close from "@/assets/svg/close.svg";
+import { matchConfidenceToPercent } from "@/components/face/utils";
 const buttonStyle =
   "relative text-white bg-[#036ac4] hover:bg-[#0473ce] flex grow-1 px-2.5 py-1.5 rounded-md text-sm md:text-[1.1rem]";
 
@@ -52,23 +52,29 @@ const ResultView = ({
         <span className="flex flex-row  items-center gap-2">
           {" "}
           <FaCheck />
-          {livenessText}
+          {livenessText === "RealFace" ? "Real Face" : "Spoof Face"}
         </span>
         <br />
-        {Nin !== "" ? <p>Livesness Status: {livenessStatus}</p> : ""}
+        {Nin !== "" ? <p>Match Status: {livenessStatus}</p> : ""}
         <br />
-        {verifyImage === undefined ? (
-          ""
-        ) : (
-          <p>Livesness Status: {livenessStatus}</p>
-        )}
+        {verifyImage === undefined ? "" : <p>Match Status: {livenessStatus}</p>}
         <br />
         <div>
-          {Nin !== "" ? <p>match confidence: {matchConfidence}</p> : ""}
+          {Nin !== "" ? (
+            <p>
+              match confidence:{" "}
+              {matchConfidenceToPercent(matchConfidence ? matchConfidence : 0)}
+            </p>
+          ) : (
+            ""
+          )}
           {verifyImage === undefined ? (
             ""
           ) : (
-            <p>Match Confidence: {matchConfidence}</p>
+            <p>
+              Match Confidence:{" "}
+              {matchConfidenceToPercent(matchConfidence ? matchConfidence : 0)}
+            </p>
           )}
         </div>
       </div>

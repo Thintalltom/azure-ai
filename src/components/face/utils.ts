@@ -117,6 +117,7 @@ export type SessionResponse = {
   token: null;
   message: string;
 };
+
 export const getDummyDeviceId = async (): Promise<string> => {
   let deviceId = (await navigator.mediaDevices.enumerateDevices()).find(
     device => device.deviceId !== ""
@@ -151,6 +152,12 @@ export const getDummyDeviceId = async (): Promise<string> => {
   return deviceId;
 };
 
+export const matchConfidenceToPercent = (value: number) => {
+  if (isNaN(value)) {
+    return "Invalid number";
+  }
+  return (value * 100).toFixed(2) + "%";
+};
 // export const getDummyDeviceId = async (): Promise<string> => {
 //   let deviceId = (await navigator.mediaDevices.enumerateDevices()).find(
 //     (device) => device.deviceId !== ""

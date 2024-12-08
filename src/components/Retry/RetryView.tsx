@@ -1,4 +1,6 @@
 import close from "@/assets/svg/close.svg";
+import busted from "@/assets/gif/busted.gif";
+
 type RetryViewProps = {
   errorMessage: string;
   continueFaceLivenessDetector?: () => void;
@@ -20,6 +22,7 @@ const RetryView = ({
           alt="close"
           className="cursor-pointer  float-right absolute top-5 right-5"
         />
+        <img src={busted} alt="congrats" className="w-[100px] h-[100px] " />
         {errorMessage && (
           <p className="text-center w-[80%] text-wrap text-red-600 text-md">
             {errorMessage}
