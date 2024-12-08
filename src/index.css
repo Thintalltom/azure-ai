@@ -3,5 +3,20 @@
 @tailwind utilities;
 
 button:disabled {
-  background-color: #DEDEDE;
+  background-color: #dedede;
+}
+.loading-icon {
+  animation-name: loading-icon;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes loading-icon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

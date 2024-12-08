@@ -54,10 +54,14 @@ const VerificationModal = ({
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
-      <div className={`bg-[#FFFFFF] rounded-[20px] relative flex flex-col gap-[15px] justify-center w-full md:w-[40%]  ${showImageUpload  ? "h-auto" : "h-auto "} p-[20px] `}>
+    <div className="z-[1050] fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
+      <div
+        className={`bg-[#FFFFFF] rounded-t-[20px] lg:rounded-[20px] relative flex flex-col gap-[15px] justify-center w-full md:w-[40%]  ${
+          showImageUpload ? "h-auto" : "h-auto "
+        } p-[20px] `}
+      >
         <div className="flex justify-between items-center">
-          <p className="font-bold">Verification Method</p>
+          <p className="font-bold text-[20px] ">Verification Method</p>
 
           <img
             src={close}
@@ -70,12 +74,12 @@ const VerificationModal = ({
           />
         </div>
 
-        <div className="text-[#8A8A8A] font-thin text-[14px]">
+        <div className="text-[#8A8A8A]  text-[14px]">
           {livenessAndVerify && !showNinDetails && !showImageUpload && (
-            <p>select your preffered method to continue</p>
+            <p>Select your preffered method to continue</p>
           )}
           {!livenessAndVerify && (
-            <p>select your preffered method to continue</p>
+            <p>Select your preffered method to continue</p>
           )}
           {showNinDetails && <p>Please enter your NIN to continue</p>}
           {showImageUpload && <p>Please upload your image to continue</p>}
@@ -84,7 +88,7 @@ const VerificationModal = ({
           {!livenessAndVerify ? (
             <div>
               <div className="flex flex-col gap-[20px]">
-                <label className="flex gap-[5px]">
+                <label className="flex gap-[5px] cursor-pointer">
                   <input
                     type="radio"
                     id="liveness"
@@ -95,7 +99,7 @@ const VerificationModal = ({
                   />
                   <p>Liveness</p>
                 </label>
-                <label className="flex gap-[5px] items-center">
+                <label className="flex gap-[5px] items-center cursor-pointer">
                   <input
                     type="radio"
                     id="livenessAndVerify"
@@ -110,7 +114,7 @@ const VerificationModal = ({
             </div>
           ) : livenessAndVerify && !showNinDetails && !showImageUpload ? (
             <div className="flex flex-col gap-[20px]">
-              <label className="flex gap-[5px]">
+              <label className="flex gap-[5px] cursor-pointer">
                 <input
                   type="radio"
                   id="Nin"
@@ -121,7 +125,7 @@ const VerificationModal = ({
                 />
                 <p>NIN</p>
               </label>
-              <label className="flex gap-[5px]">
+              <label className="flex gap-[5px] cursor-pointer">
                 <input
                   type="radio"
                   id="Upload"

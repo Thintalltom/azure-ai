@@ -8,27 +8,26 @@ export async function fetchTokenFromAPI(
   setToken: (token: string) => void,
   setSessionId?: (sessionId: string) => void,
   setErrors?: (text: string) => void,
-  errors?:string,
-  setErrorOption?: React.Dispatch<React.SetStateAction<boolean>> 
+  errors?: string,
+  setErrorOption?: React.Dispatch<React.SetStateAction<boolean>>,
+  setTokenIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
 ): Promise<void> {
+  let DeviceId = await getDummyDeviceId();
 
-  let DeviceId = await getDummyDeviceId()
-
+  setTokenIsLoading?.(true);
   try {
     const response = await axios.post(
       `https://infinionbackendapps-objectvalidation.azurewebsites.net/FaceAPI/${DeviceId}/session/create`
     );
-
-
+    setTokenIsLoading?.(false);
     setToken(response.data.sessionAuthToken);
     if (setSessionId) {
       setSessionId(response.data.sessionId);
     }
   } catch (error: any) {
-    
- 
+    setTokenIsLoading?.(false);
     if (setErrors && setErrorOption) {
-      setErrorOption(true)
+      setErrorOption(true);
       setErrors(error.response.data);
     }
   }
@@ -40,12 +39,14 @@ export async function fetchTokenfromApiWithNumber(
   Nin: string | undefined,
   file: File | undefined,
   setErrors?: (text: string) => void,
-  errors?:string,
+  errors?: string,
   setErrorOption?: React.Dispatch<React.SetStateAction<boolean>>,
-  setApiError?:React.Dispatch<React.SetStateAction<string>>,
+  setApiError?: React.Dispatch<React.SetStateAction<string>>,
+  setTokenIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
 ): Promise<void> {
-setApiError?.("");
-localStorage.removeItem("NINDETAILS");
+  setTokenIsLoading?.(true);
+  setApiError?.("");
+  localStorage.removeItem("NINDETAILS");
   if (errors && setErrors) {
     setErrors(errors);
     console.error("Skipping API call due to existing error:", errors);
@@ -61,6 +62,7 @@ localStorage.removeItem("NINDETAILS");
     : `https://infinionbackendapps-objectvalidation.azurewebsites.net/FaceAPI/${DeviceId}/session/${NinNumber}/create`;
   if (file) {
     try {
+      setTokenIsLoading?.(false);
       formData.append("photo", file);
       const response = await axios.post(endpoint, formData, {
         headers: {
@@ -70,30 +72,30 @@ localStorage.removeItem("NINDETAILS");
       setToken(response.data.sessionAuthToken);
       if (setSessionId) {
         setSessionId(response.data.sessionId);
-        setApiError?.("")
+        setApiError?.("");
       }
     } catch (error: any) {
+      setTokenIsLoading?.(false);
       let errorMessage = error.response?.data?.split(".", 1)[0] + ".";
-     
+
       if (error.response?.data) {
         errorMessage =
           typeof error.response.data === "string"
             ? error.response?.data?.split(".", 1)[0] + "."
             : JSON.stringify(error.response.data);
-            setApiError?.(errorMessage)
+        setApiError?.(errorMessage);
       } else if (error.message) {
         errorMessage = error.message;
       }
-    
-      
-        setErrorOption?.(true)
-        setErrors?.(errorMessage);
-      
-    
+
+      setErrorOption?.(true);
+      setErrors?.(errorMessage);
+
       console.error("Error details:", error);
     }
   } else {
     try {
+      setTokenIsLoading?.(true);
       const response = await axios.post(endpoint);
       localStorage.removeItem("NINDETAILS");
       setToken(response.data.sessionAuthToken);
@@ -101,13 +103,13 @@ localStorage.removeItem("NINDETAILS");
         setSessionId(response.data.sessionId);
       }
     } catch (error: any) {
+      setTokenIsLoading?.(false);
       // if (setErrors && setErrorOption) {
-        setErrorOption?.(true)
-        setErrors?.(error.response.data);
+      setErrorOption?.(true);
+      setErrors?.(error.response.data);
       // }
-
     }
-    console.log('the error is:', errors)
+    console.log("the error is:", errors);
   }
 }
 
@@ -115,35 +117,68 @@ export type SessionResponse = {
   token: null;
   message: string;
 };
-
 export const getDummyDeviceId = async (): Promise<string> => {
   let deviceId = (await navigator.mediaDevices.enumerateDevices()).find(
-    (device) => device.deviceId !== ""
+    device => device.deviceId !== ""
   )?.deviceId;
 
-  if (deviceId) {
-    deviceId = deviceId.endsWith("=")
-      ? Array.from(atob(deviceId), (char) =>
-          ("0" + char.charCodeAt(0).toString(16)).slice(-2)
-        )?.join("")
-      : deviceId;
-  } else {
+  if (!deviceId) {
     deviceId =
       globalThis.crypto?.randomUUID()?.replace(/-/g, "") || "0".repeat(64);
   }
 
+  // Clean up the deviceId to ensure it's a valid hexadecimal string
+  deviceId = deviceId.replace(/[^0-9a-fA-F]/g, "");
+
+  // Ensure deviceId is at least 64 characters long
   deviceId = "0".repeat(64 - deviceId.length) + deviceId;
-  deviceId = (
-    BigInt("0x" + deviceId.substring(0, 32)) ^
-    BigInt("0x" + deviceId.substring(32, 64))
-  )
-    .toString(16)
-    .substring(0, 32);
-  deviceId =
-    ("0".repeat(32 - deviceId.length) + deviceId)
-      .match(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/)
-      ?.slice(1)
-      ?.join("-") || "";
+
+  try {
+    const high = BigInt("0x" + deviceId.substring(0, 32));
+    const low = BigInt("0x" + deviceId.substring(32, 64));
+    const combined = (high ^ low).toString(16);
+
+    deviceId =
+      ("0".repeat(32 - combined.length) + combined)
+        .match(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/)
+        ?.slice(1)
+        ?.join("-") || "";
+  } catch (error) {
+    console.error("Error generating device ID:", error);
+    deviceId = "error"; // Or handle the error in a more appropriate way
+  }
 
   return deviceId;
 };
+
+// export const getDummyDeviceId = async (): Promise<string> => {
+//   let deviceId = (await navigator.mediaDevices.enumerateDevices()).find(
+//     (device) => device.deviceId !== ""
+//   )?.deviceId;
+
+//   if (deviceId) {
+//     deviceId = deviceId.endsWith("=")
+//       ? Array.from(atob(deviceId), (char) =>
+//           ("0" + char.charCodeAt(0).toString(16)).slice(-2)
+//         )?.join("")
+//       : deviceId;
+//   } else {
+//     deviceId =
+//       globalThis.crypto?.randomUUID()?.replace(/-/g, "") || "0".repeat(64);
+//   }
+
+//   deviceId = "0".repeat(64 - deviceId.length) + deviceId;
+//   deviceId = (
+//     BigInt("0x" + deviceId.substring(0, 32)) ^
+//     BigInt("0x" + deviceId.substring(32, 64))
+//   )
+//     .toString(16)
+//     .substring(0, 32);
+//   deviceId =
+//     ("0".repeat(32 - deviceId.length) + deviceId)
+//       .match(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/)
+//       ?.slice(1)
+//       ?.join("-") || "";
+
+//   return deviceId;
+// };
