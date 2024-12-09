@@ -88,7 +88,7 @@ const VerificationModal = ({
           {!livenessAndVerify ? (
             <div>
               <div className="flex flex-col gap-[20px]">
-                <label className="flex gap-[5px] cursor-pointer">
+                <label className="flex gap-[5px] cursor-pointer items-center">
                   <input
                     type="radio"
                     id="liveness"
@@ -114,7 +114,7 @@ const VerificationModal = ({
             </div>
           ) : livenessAndVerify && !showNinDetails && !showImageUpload ? (
             <div className="flex flex-col gap-[20px]">
-              <label className="flex gap-[5px] cursor-pointer">
+              <label className="flex gap-[5px] items-center cursor-pointer">
                 <input
                   type="radio"
                   id="Nin"
@@ -125,7 +125,7 @@ const VerificationModal = ({
                 />
                 <p>NIN</p>
               </label>
-              <label className="flex gap-[5px] cursor-pointer">
+              <label className="flex gap-[5px] items-center cursor-pointer">
                 <input
                   type="radio"
                   id="Upload"

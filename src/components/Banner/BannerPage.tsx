@@ -27,7 +27,7 @@ const BannerPage = ({
   return (
     <div
       // bg-[#fbfbfb]  bg-gradient-to-br from-[#fbfbfb] to-[#d8e9fd]
-      className="h-[100vh] bg-[#fbfbfb] "
+      className="h-[84vh] mt-[8vh] bg-[#fbfbfb] overflow-hidden "
       // style={{
       //   background:
       //     "linear-gradient(to top left,#d8e9fd 20vh,#fff 1%, #fbfbfb 100%)",
@@ -36,7 +36,7 @@ const BannerPage = ({
       <div className=" flex justify-center items-center h-full  gap-[10px] flex-col">
         <img src={verify} alt="person" className="w-[225px] h-[200px] " />
         <p className="text-[24px] font-bold">Verify your identity</p>
-        <p className="text-[14px] text-slate-400">
+        <p className="text-[14px] text-slate-400 text-center">
           Secure and seamless identity verification in just a few steps.
         </p>
 
