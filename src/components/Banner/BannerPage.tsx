@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import VerificationModal from "../../components/Modal/VerificationModal";
 import { InitialViewProps } from "@/Types";
 import { useIsAuthenticated } from "@azure/msal-react";
@@ -24,10 +24,36 @@ const BannerPage = ({
   const showPopup = () => {
     setPopup(true);
   };
+  const popupRef = useRef<any>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        setPopup(false);
+      }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setPopup(false);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, []);
   return (
     <div
+      // ref={popupRef}
       // bg-[#fbfbfb]  bg-gradient-to-br from-[#fbfbfb] to-[#d8e9fd]
-      className="h-[84vh] mt-[8vh] bg-[#fbfbfb] overflow-hidden "
+      className="h-[92vh] pt-[8vh] bg-[#fbfbfb] overflow-hidden "
       // style={{
       //   background:
       //     "linear-gradient(to top left,#d8e9fd 20vh,#fff 1%, #fbfbfb 100%)",
