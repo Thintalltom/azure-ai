@@ -4,7 +4,7 @@ import { IoPersonSharp } from "react-icons/io5";
 import { ResultViewProps } from "@/Types";
 import success from "@/assets/gif/success.gif";
 import busted from "@/assets/gif/busted.gif";
-import { matchConfidenceToPercent } from "@/components/face/utils";
+import { formatText, matchConfidenceToPercent } from "@/components/face/utils";
 const buttonStyle =
   "relative text-white bg-[#036ac4] hover:bg-[#0473ce] flex grow-1 px-2.5 py-1.5 rounded-md text-sm md:text-[1.1rem]";
 
@@ -41,23 +41,42 @@ const ResultView = ({
         alt="congrats"
         className="w-[100px] h-[100px] "
       />
-      <p
-        className={`${
-          livenessText === "RealFace" ? "text-green-400" : "text-red-400"
-        } font-[700] text-[24px] `}
-      >
-        {livenessText === "RealFace" ? "Congratulations" : "Busted"}{" "}
-      </p>
+
+      {Nin !== "" || verifyImage !== undefined ? (
+        <p
+          className={`${
+            livenessText === "RealFace" && livenessStatus === "Recognized"
+              ? "text-green-400"
+              : "text-red-400"
+          } font-[700] text-[24px] `}
+        >
+          {livenessText === "RealFace" && livenessStatus === "Recognized"
+            ? "Congratulations"
+            : "Busted"}{" "}
+        </p>
+      ) : (
+        <p
+          className={`${
+            livenessText === "RealFace" ? "text-green-400" : "text-red-400"
+          } font-[700] text-[24px] `}
+        >
+          {livenessText === "RealFace" ? "Congratulations" : "Busted"}{" "}
+        </p>
+      )}
       <div className="flex flex-col items-center gap-x-2">
         <span className="flex flex-row  items-center gap-2">
           {" "}
           <FaCheck />
-          {livenessText === "RealFace" ? "Real Face" : "Spoof Face"}
+          {formatText(livenessText)}
         </span>
         <br />
-        {Nin !== "" ? <p>Match Status: {livenessStatus}</p> : ""}
+        {Nin !== "" ? <p>Match Status: {formatText(livenessStatus)}</p> : ""}
         <br />
-        {verifyImage === undefined ? "" : <p>Match Status: {livenessStatus}</p>}
+        {verifyImage === undefined ? (
+          ""
+        ) : (
+          <p>Match Status: {formatText(livenessStatus)}</p>
+        )}
         <br />
         <div>
           {Nin !== "" ? (

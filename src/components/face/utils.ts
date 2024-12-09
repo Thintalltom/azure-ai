@@ -62,7 +62,6 @@ export async function fetchTokenfromApiWithNumber(
     : `https://infinionbackendapps-objectvalidation.azurewebsites.net/FaceAPI/${DeviceId}/session/${NinNumber}/create`;
   if (file) {
     try {
-      setTokenIsLoading?.(false);
       formData.append("photo", file);
       const response = await axios.post(endpoint, formData, {
         headers: {
@@ -73,6 +72,7 @@ export async function fetchTokenfromApiWithNumber(
       if (setSessionId) {
         setSessionId(response.data.sessionId);
         setApiError?.("");
+        setTokenIsLoading?.(false);
       }
     } catch (error: any) {
       setTokenIsLoading?.(false);
@@ -95,11 +95,11 @@ export async function fetchTokenfromApiWithNumber(
     }
   } else {
     try {
-      setTokenIsLoading?.(true);
       const response = await axios.post(endpoint);
       localStorage.removeItem("NINDETAILS");
       setToken(response.data.sessionAuthToken);
       if (setSessionId) {
+        setTokenIsLoading?.(false);
         setSessionId(response.data.sessionId);
       }
     } catch (error: any) {
@@ -157,6 +157,13 @@ export const matchConfidenceToPercent = (value: number) => {
     return "Invalid number";
   }
   return (value * 100).toFixed(2) + "%";
+};
+
+export const formatText = (text: string) => {
+  return text
+    .replace(/([A-Z])/g, " $1")
+    .replace(/\b[A-Z]/g, " $&")
+    .trim();
 };
 // export const getDummyDeviceId = async (): Promise<string> => {
 //   let deviceId = (await navigator.mediaDevices.enumerateDevices()).find(

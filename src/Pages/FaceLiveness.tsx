@@ -52,6 +52,7 @@ export default function FaceLiveness() {
   function continueFaceLivenessDetector() {
     // console.log("Retry button clicked!");
     setLivenessDetectorState("Initial");
+    window.location.reload();
     setVerifyImage(undefined);
     // window.location.reload();
   }
