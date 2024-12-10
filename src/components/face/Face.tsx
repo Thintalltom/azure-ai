@@ -1,12 +1,13 @@
-
 import RetryView from "@/components/Retry/RetryView";
 import "azure-ai-vision-face-ui";
 import { FaceLivenessDetector } from "azure-ai-vision-face-ui";
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchTokenFromAPI, fetchTokenfromApiWithNumber } from "./utils";
 import { FaceLivenessDetectorProps } from "@/Types";
 import ResultView from "@/components/Result/ResultView";
 import { useAlatContext } from "@/context/AlatContextProvider";
+import Loader from "@/components/utility/Loader";
+
 export const FaceLivenessDetectorComponent = ({
   file,
   fetchFailureCallback,
@@ -25,12 +26,13 @@ export const FaceLivenessDetectorComponent = ({
   verifyImage,
 }: FaceLivenessDetectorProps) => {
   // React Hooks
-  const {setApiError} = useAlatContext()
+
+  const { setApiError, tokenIsLoading, setTokenIsLoading } = useAlatContext();
   const [token, setToken] = useState<string | null>(null);
   const [loadingToken, setLoadingToken] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [errorOption, setErrorOption] = useState<boolean>(false)
+  const [errorOption, setErrorOption] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [errors, setErrors] = useState("");
 
@@ -44,17 +46,23 @@ export const FaceLivenessDetectorComponent = ({
         setErrors,
         errors,
         setErrorOption,
-        setApiError
+        setApiError,
+        setTokenIsLoading
       );
     } else {
-      fetchTokenFromAPI(setToken, setSessionId, setErrors, errors, setErrorOption);
+      fetchTokenFromAPI(
+        setToken,
+        setSessionId,
+        setErrors,
+        errors,
+        setErrorOption,
+        setTokenIsLoading
+      );
     }
   }, [file, Nin]);
 
   // console.log("the error is:", errors);
   // Handle token fetch errors
- 
-  
 
   useEffect(() => {
     if (!token && !loadingToken && fetchFailureCallback) {
@@ -64,35 +72,36 @@ export const FaceLivenessDetectorComponent = ({
 
   useEffect(() => {
     const customLanguage = {
-      "None": "Stay still.",
-      "LookAtCamera": "Look straight at camera.",
-      "FaceNotCentered": "Kindly Center your face in the preview circle.",
-      "MoveCloser": "Move in closer.",
-      "ContinueToMoveCloser": "Move more closer.",
-      "MoveBack": "Move farther away.",
-      "TooMuchMovement": "Reduce movement.",
-      "AttentionNotNeeded": "",
-      "Smile": "Smile please!",
-      "LookInFront": "Look straight.",
-      "LookUp": "Look up.",
-      "LookUpRight": "Look up-right.",
-      "LookUpLeft": "Look up-left.",
-      "LookRight": "Look right.",
-      "LookLeft": "Look left.",
-      "LookDown": "Look down.",
-      "LookDownRight": "Look down-right.",
-      "LookDownLeft": "Look down-left.",
-      "TimedOut": "Timed out.",
-      "IncreaseBrightnessToMax": " your screen brightness to maximum.",
-      "Tip1Title": "Tip 1:",
-      "Tip2Title": "Tip 2:",
-      "Tip3Title": "Tip 3:",
-      "Tip1": "Center your face in the preview. Make sure your eyes and mouth are visible, remove any obstructions like headphones.",
-      "Tip2": "You may be asked to smile.",
-      "Tip3": "You may be asked to move your nose towards the green color.",
-      "Continue": "Continue"
-  };
+      None: "Stay still.",
+      LookAtCamera: "Look straight at camera.",
+      FaceNotCentered: "Kindly Center your face in the preview circle.",
+      MoveCloser: "Move in closer.",
+      ContinueToMoveCloser: "Move more closer.",
+      MoveBack: "Move farther away.",
+      TooMuchMovement: "Reduce movement.",
+      AttentionNotNeeded: "",
+      Smile: "Smile please!",
+      LookInFront: "Look straight.",
+      LookUp: "Look up.",
+      LookUpRight: "Look up-right.",
+      LookUpLeft: "Look up-left.",
+      LookRight: "Look right.",
+      LookLeft: "Look left.",
+      LookDown: "Look down.",
+      LookDownRight: "Look down-right.",
+      LookDownLeft: "Look down-left.",
+      TimedOut: "Timed out.",
+      IncreaseBrightnessToMax: " your screen brightness to maximum.",
+      Tip1Title: "Tip 1:",
+      Tip2Title: "Tip 2:",
+      Tip3Title: "Tip 3:",
+      Tip1: "Center your face in the preview. Make sure your eyes and mouth are visible, remove any obstructions like headphones.",
+      Tip2: "You may be asked to smile.",
+      Tip3: "You may be asked to move your nose towards the green color.",
+      Continue: "Continue",
+    };
     const fetchData = async () => {
+      // console.log("lets start the sdk");
       var faceLivenessDetector = document.querySelector(
         "azure-ai-vision-face-ui"
       ) as FaceLivenessDetector;
@@ -106,7 +115,7 @@ export const FaceLivenessDetectorComponent = ({
           containerRef.current.appendChild(faceLivenessDetector);
         }
       }
-      
+
       // Step 5: Start the FaceLivenessDetector session.
       faceLivenessDetector
         .start(token as string)
@@ -117,28 +126,33 @@ export const FaceLivenessDetectorComponent = ({
         })
         .catch((error: any) => {
           setErrors(error.livenessError);
-          console.log('the sdk start', error)
-          
+          // console.log("the sdk start", error);
+
           // console.log('this error is from the start of sdk', error)
         });
     };
 
-    fetchData();
+    !tokenIsLoading && fetchData();
   }, [token]);
-// console.log('the error is not from sdk', errors)
-// console.log('errorOption is', errorOption)
+  // console.log('the error is not from sdk', errors)
+  // console.log('errorOption is', errorOption)
+
+  // console.log("token is loading is ", tokenIsLoading);
   return (
-    <div className="justify-center  flex-col h-screen flex items-center">
+    <div className="justify-center  flex-col h-screen w-[100%]  flex items-center">
       {/* Container in which the FaceLivenessDetector will be injected */}
-      <div id="container" ref={containerRef}>
-        {errors !== "" ? (
-          <RetryView
-            errorMessage={errors}
-            returnHome={returnHome}
-            NinErr={NinErr || ""}
-          />
-        ) :
-            livenessText  && (
+      {tokenIsLoading ? (
+        <Loader />
+      ) : (
+        <div id="container" ref={containerRef} className="w-full h-full">
+          {errors !== "" ? (
+            <RetryView
+              errorMessage={errors}
+              returnHome={returnHome}
+              NinErr={NinErr || ""}
+            />
+          ) : (
+            livenessText && (
               <ResultView
                 // sessionId={sessionId}
                 livenessText={livenessText}
@@ -150,9 +164,10 @@ export const FaceLivenessDetectorComponent = ({
                 verifyImage={verifyImage}
                 Nin={Nin || ""}
               />
-            ) 
-          }
-      </div>
+            )
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,12 +1,12 @@
-
 import { FaCheck } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
-import {ResultViewProps} from '@/Types';
-import close from "@/assets/svg/close.svg";
+import { ResultViewProps } from "@/Types";
+import success from "@/assets/gif/success.gif";
+import busted from "@/assets/gif/busted.gif";
+import { formatText, matchConfidenceToPercent } from "@/components/face/utils";
 const buttonStyle =
   "relative text-white bg-[#036ac4] hover:bg-[#0473ce] flex grow-1 px-2.5 py-1.5 rounded-md text-sm md:text-[1.1rem]";
-
 
 const ResultView = ({
   isDetectLivenessWithVerify,
@@ -17,59 +17,109 @@ const ResultView = ({
   matchConfidence,
   livenessStatus,
   verifyImage,
-  Nin
+  Nin,
 }: ResultViewProps) => {
-  
-  const returnHome  = () => {
-    continueFunction
-  }
+  const returnHome = () => {
+    continueFunction;
+  };
   return (
-    <div className="fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-[2px] max-h-[100vh] flex gap-[35px] justify-center items-end md:items-center"> 
-    <div className="flex flex-col  justify-start items-center relative bg-white rounded-[20px]   h-auto p-[20px]   w-full md:w-[40%] ">
-      <div className="mt-10 flex flex-col justify-start  items-center gap-y-4">
+    <div
+      // style={{
+      //   background:
+      //     "linear-gradient(to top left,#d8e9fd 20vh,#fff 1%, #fbfbfb 100%)",
+      // }}
+      className="  w-full h-full flex items-center justify-center flex-col "
+    >
+      {/* <img
+        src={close}
+        alt="close"
+        className="cursor-pointer absolute top-5 right-5 "
+        onClick={continueFunction}
+      /> */}
       <img
-            src={close}
-            alt="close"
-            className="cursor-pointer absolute top-5 right-5 "
-            onClick={continueFunction}
-          />
-        <div className="flex flex-row items-center gap-2">
-          <FaHeart />
-          <span>Liveness</span>
-        </div>
-        <div className="flex flex-col items-center gap-x-2">
-          
-          <span className="flex flex-row  items-center gap-2"> <FaCheck />{livenessText}</span><br />
-          <span>{livenessStatus}</span><br />
-          <div>
-          {Nin !== "" ? <p>match confidence:  {matchConfidence}</p> : ""}
-          {verifyImage === undefined ? "" : <p>match confidence:  {matchConfidence}</p>}
-          </div>
-         
-          
-        </div>
+        src={livenessText === "RealFace" ? success : busted}
+        alt="congrats"
+        className="w-[100px] h-[100px] "
+      />
 
-        {isDetectLivenessWithVerify && (
-          <>
-            <div className="w-40 h-0 border border-transparent border-t-gray-500" />
-            <div className="flex flex-row items-center gap-x-2">
-              <IoPersonSharp />
-              <span>Verification</span>
-            </div>
-            <div className="flex flex-row items-center gap-x-2">
-              <span>{recognitionText}</span>
-            </div>
-          </>
+      {Nin !== "" || verifyImage !== undefined ? (
+        <p
+          className={`${
+            livenessText === "RealFace" && livenessStatus === "Recognized"
+              ? "text-green-400"
+              : "text-red-400"
+          } font-[700] text-[24px] `}
+        >
+          {livenessText === "RealFace" && livenessStatus === "Recognized"
+            ? "Congratulations"
+            : "Busted"}{" "}
+        </p>
+      ) : (
+        <p
+          className={`${
+            livenessText === "RealFace" ? "text-green-400" : "text-red-400"
+          } font-[700] text-[24px] `}
+        >
+          {livenessText === "RealFace" ? "Congratulations" : "Busted"}{" "}
+        </p>
+      )}
+      <div className="flex flex-col items-center gap-x-2">
+        <span className="flex flex-row  items-center gap-2">
+          {" "}
+          <FaCheck />
+          {formatText(livenessText)}
+        </span>
+        <br />
+        {Nin !== "" ? <p>Match Status: {formatText(livenessStatus)}</p> : ""}
+        <br />
+        {verifyImage === undefined ? (
+          ""
+        ) : (
+          <p>Match Status: {formatText(livenessStatus)}</p>
         )}
+        <br />
+        <div>
+          {Nin !== "" ? (
+            <p>
+              match confidence:{" "}
+              {matchConfidenceToPercent(matchConfidence ? matchConfidence : 0)}
+            </p>
+          ) : (
+            ""
+          )}
+          {verifyImage === undefined ? (
+            ""
+          ) : (
+            <p>
+              Match Confidence:{" "}
+              {matchConfidenceToPercent(matchConfidence ? matchConfidence : 0)}
+            </p>
+          )}
+        </div>
       </div>
+
+      {isDetectLivenessWithVerify && (
+        <>
+          <div className="w-40 h-0 border border-transparent border-t-gray-500" />
+          <div className="flex flex-row items-center gap-x-2">
+            <IoPersonSharp />
+            <span>Verification</span>
+          </div>
+          <div className="flex flex-row items-center gap-x-2">
+            <span>{recognitionText}</span>
+          </div>
+        </>
+      )}
       {continueFunction !== undefined && (
-        <div className=" w-[410px] ">
-          <button onClick={continueFunction} className='bg-primary hover:shadow-lg h-[52px] w-full  text-white mt-4 rounded-[12px] text-sm'>
+        <div className=" w-full lg:w-[410px] px-10 lg:px-0 ">
+          <button
+            onClick={continueFunction}
+            className="bg-primary hover:shadow-lg h-[52px] w-full  text-white mt-4 rounded-[12px] text-sm"
+          >
             Continue
           </button>
         </div>
       )}
-    </div>
     </div>
   );
 };

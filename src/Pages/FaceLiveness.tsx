@@ -1,4 +1,3 @@
-
 import ResultView from "../components/Result/ResultView";
 // import InitialView from "./InitialView";
 import RetryView from "../components/Retry/RetryView";
@@ -7,7 +6,7 @@ import { ChangeEvent, useState } from "react";
 import BannerPage from "../components/Banner/BannerPage";
 import { useAlatContext } from "@/context/AlatContextProvider";
 import ErrrComp from "@/components/Error/ErrComp";
-import FaceLivenessDetectorComponent from '@/components/face/Face'
+import FaceLivenessDetectorComponent from "@/components/face/Face";
 
 type LivenessOperationMode = "Passive" | "PassiveActive";
 type LivenessDetectorState =
@@ -17,8 +16,7 @@ type LivenessDetectorState =
   | "Retry"
   | "Error";
 export default function FaceLiveness() {
-  
-  const {apiError} = useAlatContext()
+  const { apiError } = useAlatContext();
   const [verifyImage, setVerifyImage] = useState<File | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [livenessOperationMode, setLivenessOperationMode] =
@@ -28,19 +26,19 @@ export default function FaceLiveness() {
   const [isDetectLivenessWithVerify, setIsDetectLivenessWithVerify] =
     useState<Boolean>(false);
   const [livenessText, setLivenessText] = useState<string>("");
-  const [livenessStatus, setLivenessStatus] = useState<string>(""); 
+  const [livenessStatus, setLivenessStatus] = useState<string>("");
   const [sessionId, setSessionId] = useState<string>("");
-  const [matchConfidence, setMatchConfidence] = useState<number | null>(null)
+  const [matchConfidence, setMatchConfidence] = useState<number | null>(null);
   const [recognitionText, setRecognitionText] = useState<string>("Same Person");
-  const [Nin, setNin] = useState<string>('');
-  const [filePresent, setFilePresent] = useState<boolean>(false)
-  const [NinErr, setNinErr] = useState<string>('')
+  const [Nin, setNin] = useState<string>("");
+  const [filePresent, setFilePresent] = useState<boolean>(false);
+  const [NinErr, setNinErr] = useState<string>("");
   const [popup, setPopup] = useState(false);
 
   function handleFile(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       setVerifyImage(e.target.files[0]);
-      setFilePresent(true)
+      setFilePresent(true);
     } else {
       setVerifyImage(undefined);
     }
@@ -52,8 +50,9 @@ export default function FaceLiveness() {
   }
 
   function continueFaceLivenessDetector() {
-    console.log("Retry button clicked!");
+    // console.log("Retry button clicked!");
     setLivenessDetectorState("Initial");
+    window.location.reload();
     setVerifyImage(undefined);
     // window.location.reload();
   }
@@ -66,10 +65,10 @@ export default function FaceLiveness() {
   function fetchFailureCallback() {
     setLivenessDetectorState("Initial");
   }
- 
+
   function returnHome() {
-      setLivenessDetectorState("Initial");
-      window.location.reload();
+    setLivenessDetectorState("Initial");
+    window.location.reload();
   }
   const handleRemoveImage = () => {
     setVerifyImage(undefined); // Clear the image
@@ -77,7 +76,7 @@ export default function FaceLiveness() {
 
   return (
     <>
-    {/* {apiError !== "" && <ErrrComp />} */}
+      {/* {apiError !== "" && <ErrrComp />} */}
       {livenessDetectorState === "Initial" && (
         // <InitialView
         //   verifyImage={verifyImage}
@@ -89,14 +88,20 @@ export default function FaceLiveness() {
         //   handleRemoveImage={handleRemoveImage}
 
         // />
-        <BannerPage  initFaceLivenessDetector={initFaceLivenessDetector} setNin= {setNin}
-          Nin={Nin} handleFile={handleFile} verifyImage={verifyImage} handleRemoveImage={handleRemoveImage} />
+        <BannerPage
+          initFaceLivenessDetector={initFaceLivenessDetector}
+          setNin={setNin}
+          Nin={Nin}
+          handleFile={handleFile}
+          verifyImage={verifyImage}
+          handleRemoveImage={handleRemoveImage}
+        />
       )}
       {livenessDetectorState === "LivenessDetector" && (
         <FaceLivenessDetectorComponent
           livenessOperationMode={livenessOperationMode}
           file={verifyImage}
-          filePresent={filePresent} 
+          filePresent={filePresent}
           setFile={setVerifyImage}
           setIsDetectLivenessWithVerify={displayResult}
           fetchFailureCallback={fetchFailureCallback}
@@ -107,9 +112,9 @@ export default function FaceLiveness() {
           setLivenessStatus={setLivenessStatus}
           setLivenessText={setLivenessText}
           setMatchConfidence={setMatchConfidence}
-          setNin= {setNin}
+          setNin={setNin}
           Nin={Nin}
-          NinErr={NinErr} 
+          NinErr={NinErr}
           setNinErr={setNinErr}
           livenessText={livenessText}
           recognitionText={recognitionText}
@@ -133,7 +138,6 @@ export default function FaceLiveness() {
           livenessStatus={livenessStatus}
           verifyImage={verifyImage}
           Nin={Nin}
-          
         />
       )}
 
@@ -142,7 +146,7 @@ export default function FaceLiveness() {
           errorMessage={errorMessage}
           continueFaceLivenessDetector={continueFaceLivenessDetector}
           returnHome={returnHome}
-          NinErr={ NinErr}
+          NinErr={NinErr}
         />
       )}
     </>

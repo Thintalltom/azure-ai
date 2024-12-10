@@ -1,11 +1,9 @@
-
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "@/authConfig/authConfig";
 import close from "@/assets/svg/close.svg";
 import React from "react";
 interface SignInProps {
-  setShowNinDetails: React.Dispatch<React.SetStateAction<boolean>>
- 
+  setShowNinDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const SignIn = ({ setShowNinDetails }: SignInProps) => {
   const { instance } = useMsal();
@@ -30,9 +28,9 @@ const SignIn = ({ setShowNinDetails }: SignInProps) => {
     localStorage.removeItem("NINDETAILS");
   };
   return (
-    <div className=" fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
+    <div className=" fixed inset-0 bg-opacity-[2%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
       <div className="bg-[#FFFFFF] rounded-[20px]   h-auto   w-full md:w-[40%] p-[20px] ">
-      <div className="flex justify-between items-center mb-10">
+        <div className="flex justify-between items-center mb-10">
           <p className="font-bold">Login</p>
 
           <img
@@ -43,11 +41,12 @@ const SignIn = ({ setShowNinDetails }: SignInProps) => {
           />
         </div>
 
-
         <div className="flex justify-center top-[30%] relative items-center flex-col gap-[20px]">
-          <p className="text-sm text-center ">You need to Login with an INFINION account to use your NIN</p>
+          <p className="text-sm text-center ">
+            You need to Login with an INFINION account to use your NIN
+          </p>
           <button
-            onClick={() => handleLogin("redirect")}
+            onClick={() => handleLogin("popup")}
             className="bg-primary hover:shadow-lg   text-white h-[52px] w-[90%] mt-4 rounded-[12px] text-sm"
           >
             Log in
