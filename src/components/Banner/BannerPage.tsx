@@ -27,14 +27,12 @@ const BannerPage = ({
   const popupRef = useRef<any>(null);
 
   useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
-      ) {
-        setPopup(false);
-      }
-    };
+    // const handleClickOutside = (event: MouseEvent) => {
+    //  if(event.type === "mousedown")
+    //  {
+    //   setPopup(false)
+    //  }
+    // };
 
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -42,10 +40,10 @@ const BannerPage = ({
       }
     };
 
-    document.addEventListener("click", handleOutsideClick);
+    // document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleEscapeKey);
     return () => {
-      document.removeEventListener("click", handleOutsideClick);
+      // document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, []);
@@ -72,7 +70,7 @@ const BannerPage = ({
         >
           Begin Verification
         </button>
-        {popup ? (
+        {popup &&
           <VerificationModal
             initFaceLivenessDetector={initFaceLivenessDetector}
             setNin={setNin}
@@ -83,7 +81,7 @@ const BannerPage = ({
             setPopup={setPopup}
             popupRef={popupRef}
           />
-        ) : null}
+        }
       </div>
     </div>
   );

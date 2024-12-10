@@ -7,12 +7,15 @@ type RetryViewProps = {
   continueFaceLivenessDetector?: () => void;
   returnHome: () => void;
   NinErr: string;
+
 };
 
 const RetryView = ({
   errorMessage,
   continueFaceLivenessDetector,
   returnHome,
+
+
 }: RetryViewProps) => {
   return (
     <div className="z-[1050] fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-[2px] max-h-[100vh] flex gap-[35px] justify-center items-end md:items-center">

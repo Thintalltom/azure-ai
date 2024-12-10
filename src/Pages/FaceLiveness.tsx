@@ -74,6 +74,10 @@ export default function FaceLiveness() {
     setVerifyImage(undefined); // Clear the image
   };
 
+  const handleClose  = (Event: MouseEvent) => {
+    console.log(Event)
+  }
+
   return (
     <>
       {/* {apiError !== "" && <ErrrComp />} */}
@@ -147,6 +151,7 @@ export default function FaceLiveness() {
           continueFaceLivenessDetector={continueFaceLivenessDetector}
           returnHome={returnHome}
           NinErr={NinErr}
+          
         />
       )}
     </>

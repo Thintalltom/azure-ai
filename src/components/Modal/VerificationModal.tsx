@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { InitialViewProps } from "@/Types";
 import arrow from "@/assets/svg/arrow.svg";
 import SignIn from "@/Authentication/SignIn";
@@ -53,13 +53,23 @@ const VerificationModal = ({
       setLivenessType("livenessAndVerify");
     }
   }, []);
+  
+ 
+
+  const ModalPropagation = (event: React.MouseEvent) => {
+  
+    event.stopPropagation()
+  }
+
 
   return (
-    <div className="z-[1050] fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
+    <div  onClick={() => setPopup?.(false)}     className="z-[1050] fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-sm flex gap-[35px] justify-center items-end md:items-center">
       <div
+     
         className={`bg-[#FFFFFF] rounded-t-[20px] lg:rounded-[20px] relative flex flex-col gap-[15px] justify-center w-full md:w-[40%]  ${
           showImageUpload ? "h-auto" : "h-auto "
-        } p-[20px] `}
+        } p-[20px] ` } 
+         onClick={ModalPropagation}
       >
         <div className="flex justify-between items-center">
           <p className="font-bold text-[20px] ">Verification Method</p>
@@ -67,7 +77,7 @@ const VerificationModal = ({
           <img
             src={close}
             alt="close"
-            className="cursor-pointer "
+            className="cursor-pointer hidden md:block"
             onClick={() => {
               setPopup?.(false);
               localStorage.removeItem("NINDETAILS");
