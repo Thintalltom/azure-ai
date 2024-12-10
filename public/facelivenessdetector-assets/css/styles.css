@@ -220,13 +220,13 @@ video.video {
   margin: auto;
   padding: 20px;
   position: absolute;
-  top: calc(30vh - 200px);
+  top: calc(40vh - 200px);
   left: 10vw;
   right: 10vw;
   border: solid;
   font-size: 2rem;
   z-index: 2147483647;
-  background-color: white;
+  
 }
 
 .brightnessVis {
