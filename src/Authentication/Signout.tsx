@@ -1,7 +1,9 @@
-
 import { useMsal } from "@azure/msal-react";
+import logout from "@/assets/svg/logout.svg";
+import { useState } from "react";
 const Signout = () => {
   const { instance } = useMsal();
+  const [showLogout, setShowLogout] = useState<boolean>(false);
 
   const handleLogout = (logoutType: string) => {
     if (logoutType === "popup") {
@@ -18,13 +20,20 @@ const Signout = () => {
     }
   };
   return (
-    <div className="flex gap-[20px]  ">
+    <div className="  ">
       <button
-        onClick={() => handleLogout("redirect")}
-        className="bg-primary hover:shadow-lg   text-white h-[35px] w-[150px] rounded text-sm"
+        onMouseEnter={() => setShowLogout(true)}
+        onMouseLeave={() => setShowLogout(false)}
+        onClick={() => handleLogout("popup")}
+        className="  text-white h-[35px] rounded text-sm"
       >
-        Log out
+        <img src={logout} alt="Logo" />
       </button>
+      {showLogout && (
+        <div className="absolute flex items-center w-fit justify-center bottom-[37%] right-[3.5%] px-3 py-1 bg-primary text-white rounded-[12px] ">
+          <p className="text-[14px] ">Log out</p>
+        </div>
+      )}
     </div>
   );
 };
