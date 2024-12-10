@@ -53,7 +53,7 @@ const BannerPage = ({
     <div
       // ref={popupRef}
       // bg-[#fbfbfb]  bg-gradient-to-br from-[#fbfbfb] to-[#d8e9fd]
-      className="h-[calc(100vh-90px)] pt-[90px] bg-[#fbfbfb] overflow-hidden px-[30px] "
+      className="h-[calc(100vh-70px)] pt-[70px] bg-[#fbfbfb] overflow-hidden px-[30px] "
       // style={{
       //   background:
       //     "linear-gradient(to top left,#d8e9fd 20vh,#fff 1%, #fbfbfb 100%)",
