@@ -131,20 +131,19 @@ export interface VerifyResult {
 }
 
 export interface FetchTokenProps {
-  setToken: (token: string) => void,
-  setSessionId?: (sessionId: string) => void,
-  setError?: (text: string) => void
+  setToken: (token: string) => void;
+  setSessionId?: (sessionId: string) => void;
+  setError?: (text: string) => void;
 }
-export interface  ApiwithNumberProps 
-{
-  setToken: (token: string) => void,
-  setSessionId: (sessionId: string) => void,
-  Nin: string | undefined,
-  file: File | undefined,
-  setError?: (text: string) => void
+export interface ApiwithNumberProps {
+  setToken: (token: string) => void;
+  setSessionId: (sessionId: string) => void;
+  Nin: string | undefined;
+  file: File | undefined;
+  setError?: (text: string) => void;
 }
 
-export interface  FaceLivenessDetectorProps  {
+export interface FaceLivenessDetectorProps {
   livenessOperationMode: "Passive" | "PassiveActive";
   file?: File;
   setFile?: (file: File) => void;
@@ -160,10 +159,10 @@ export interface  FaceLivenessDetectorProps  {
   Nin?: string;
   filePresent?: boolean;
   setFilePresent?: (filePresent: boolean) => void;
-  NinErr?: string
+  NinErr?: string;
   setNinErr?: (text: string) => void;
   token?: string;
-  setToken?:  (text: string) => void
+  setToken?: (text: string) => void;
   livenessText?: string;
   recognitionText?: string;
   matchConfidence?: number | null;
@@ -172,18 +171,15 @@ export interface  FaceLivenessDetectorProps  {
   sessionId?: string;
   livenessStatus?: string;
   verifyImage?: File;
-
-};
-
-
+}
 
 export type LivenessDetectorState =
-| "Initial"
-| "LivenessDetector"
-| "Result"
-| "Retry"
-| "Error"
-| "NIN";
+  | "Initial"
+  | "LivenessDetector"
+  | "Result"
+  | "Retry"
+  | "Error"
+  | "NIN";
 
 export type LivenessOperationMode = "Passive" | "PassiveActive";
 
@@ -207,4 +203,5 @@ export type InitialViewProps = {
   // setFilePresent?: (filePresent: boolean) => void;
   handleRemoveImage?: () => void;
   setPopup?: (popup: boolean) => void;
+  popupRef?: any;
 };
