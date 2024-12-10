@@ -19,7 +19,7 @@ function App() {
       </header>
       <Screen />
       <footer className="flex justify-center px-[30px] fixed bottom-0 right-0 w-[100%] bg-white h-[90px] items-center z-[10] ">
-        <p className="text-[14px] text-[#6A6A6A] text-center ">
+        <p className="text-[12px] md:text-[14px] text-[#6A6A6A] text-center ">
           &copy; 2024, Infinion Technologies. All rights reserved
         </p>
       </footer>

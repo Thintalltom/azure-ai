@@ -7,55 +7,92 @@
     hidden
   >
     <div class="justifyMiddle">
-      <div class="center" id="brightnessText" role="status">
-        your screen brightness to maximum
-      </div>
+      <!-- <div class="center" id="brightnessText" role="status">
+        Increase your screen brightness to maximum
+      </div> -->
       <div id="brightnessVis" class="center">
-        <img
-          id="brightnessImg"
-          title="Maximize brightness guidance animation"
-        />
+        <img style="width: 100px" id="brightnessImg" title="Verify" />
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <h2>Get ready for face verification</h2>
+        <p>
+          Before starting the verification process, here are some tips to ensure
+          successful facial recognition:
+        </p>
       </div>
       <div class="brightnessTips" id="brightnessTips">
         <div class="brightnessTip" id="brightnessTip1">
-          <img
+          <!-- <img
             id="brightnessTip1Img"
             title="Do not Center your face in the preview"
-          />
+          /> -->
           <div>
-            <span class="tipText" style="font-weight: bold" id="tip1Title"
+            <span
+              class="tipText"
+              style="font-weight: bold; font-size: 16px"
+              id="tip1Title"
               >Tip 1:</span
             >
-            <span class="tipText" id=""> Center your face in the preview.</span>
+            <span class="tipText" id="" style="font-size: 16px">
+              Center your face in the preview.</span
+            >
           </div>
         </div>
         <div class="brightnessTip" id="brightnessTip2">
-          <img id="brightnessTip2Img" title="You may be asked to smile" />
+          <!-- <img id="brightnessTip2Img" title="You may be asked to smile" /> -->
           <div>
-            <span class="tipText" id="tip2Title" style="font-weight: bold"
+            <span
+              class="tipText"
+              id="tip2Title"
+              style="font-weight: bold; font-size: 16px"
               >Tip 2:
             </span>
-            <span class="tipText" id="">You may be asked to smile.</span>
+            <span class="tipText" style="font-size: 16px" id=""
+              >You may be asked to smile.</span
+            >
           </div>
         </div>
         <div class="brightnessTip" id="brightnessTip3">
-          <img
+          <!-- <img
             id="brightnessTip3Img"
             title="You may be asked to move your nose towards the green color"
-          />
-          <div id="tip3GreenSector"></div>
+          /> -->
+          <!-- <div id="tip3GreenSector"></div> -->
           <div>
-            <span class="tipText" id="tip3Title" style="font-weight: bold"
+            <span
+              class="tipText"
+              id="tip3Title"
+              style="font-weight: bold; font-size: 16px"
               >Tip 3:
             </span>
-            <span class="tipText" id=""
+            <span style="font-size: 16px" class="tipText" id=""
               >You may be asked to move your nose towards the green color.</span
+            >
+          </div>
+        </div>
+        <div class="brightnessTip" id="brightnessTip3">
+          <!-- <img
+            id="brightnessTip3Img"
+            title="You may be asked to move your nose towards the green color"
+          /> -->
+          <!-- <div id="tip3GreenSector"></div> -->
+          <div>
+            <span
+              class="tipText"
+              id="tip3Title"
+              style="font-weight: bold; font-size: 16px"
+              >Tip 4:
+            </span>
+            <span style="font-size: 16px" class="tipText" id=""
+              >Increase your screen brightness to the maximum.</span
             >
           </div>
         </div>
       </div>
       <div class="center" id="startButton">
-        <button class="center" id="start" tabindex="0">Continue</button>
+        <button class="center" id="start" tabindex="0">
+          Begin Verification
+        </button>
       </div>
     </div>
   </div>

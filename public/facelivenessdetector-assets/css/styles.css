@@ -5,7 +5,8 @@
 .feedbackMessage,
 .center {
   font-size: 1.5rem;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .preview {
@@ -18,9 +19,10 @@
   left: 0;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 180px);
+  margin: 90px 0;
   z-index: 2147483645;
-  background: white;
+  background: #fbfbfb;
 }
 
 .feedbackMessage {
@@ -37,7 +39,7 @@
 
 /* Base styles */
 .preview .videoContainer {
-  --width-for-mobile: 320px;
+  --width-for-mobile: 350px;
   --width-for-desktop: 400px;
   --width: var(--width-for-mobile); /* Default to mobile width */
   --height: calc(100vh * 0.2);
@@ -55,6 +57,7 @@
   position: relative;
   z-index: 2147483646;
   background: transparent;
+  /* padding-top: 20%; */
 }
 
 /* Use 350px for --width if the viewport width < height*/
@@ -70,7 +73,6 @@
     --width: var(--width-for-mobile);
   }
 }
-
 
 .activeMotion {
   z-index: 11 !important;
@@ -92,7 +94,8 @@
   box-sizing: border-box;
   border-radius: 50%;
   background: #c0d860;
-  mask: linear-gradient(#0000 0 0) content-box intersect, conic-gradient(#000 var(--a),#0000 0);
+  mask: linear-gradient(#0000 0 0) content-box intersect,
+    conic-gradient(#000 var(--a), #0000 0);
   position: absolute;
   top: calc(var(--videoBorderWidth) / 2);
   left: calc(var(--videoBorderWidth) / 2);
@@ -101,15 +104,15 @@
 }
 
 .pose.active::before {
-  content: '';
+  content: "";
   width: 100%;
   aspect-ratio: 1;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 9;
-  background: linear-gradient(203deg, #81C784 0%, #43A047 0%);
-  animation: activeAnimation .5s ease-in-out forwards;
+  background: linear-gradient(203deg, #81c784 0%, #43a047 0%);
+  animation: activeAnimation 0.5s ease-in-out forwards;
 }
 
 @keyframes activeAnimation {
@@ -188,7 +191,8 @@
   transition: transform 1s;
 }
 
-video.video, .activeMotion {
+video.video,
+.activeMotion {
   --videoWidth: calc(100% - var(--thickness) - var(--videoBorderWidth));
   border-radius: 50%;
   object-fit: cover;
@@ -215,18 +219,27 @@ video.video {
 .camera > * {
   margin-inline: 0.5rem;
 }
+h2 {
+  font-size: 24px;
+  float: left;
+  font-weight: 600;
+}
+p {
+  /* text-align: center; */
+  color: #8a8a8a;
+  font-size: 16px;
+}
 
 .brightness {
   margin: auto;
-  padding: 20px;
+  /* padding: 20px; */
   position: absolute;
-  top: calc(40vh - 200px);
-  left: 10vw;
-  right: 10vw;
-  border: solid;
+  /* top: calc(40vh - 200px); */
+  left: 5vw;
+  right: 5vw;
+  /* border: solid; */
   font-size: 2rem;
   z-index: 2147483647;
-  
 }
 
 .brightnessVis {
@@ -235,16 +248,34 @@ video.video {
   display: block;
   margin: 3vmin auto auto;
 }
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
 
 .brightnessTips {
   --width: 21vmin;
   --maxWidth: 300px;
-  --gap: 10px;
-  display: grid;
+  /* --gap: 0px; */
+  display: flex;
+  align-items: start;
+  flex-direction: column;
   gap: var(--gap);
   font-size: 4vmin;
-  text-align: center;
-  margin-top: 5vmin
+  /* text-align: center; */
+  /* margin-top: 5vmin; */
+  @media (max-width: 768px) {
+    /* Adjust the breakpoint as needed */
+
+    --gap: 10px;
+
+    margin-top: 5vmin;
+  }
 }
 
 .brightnessTips img {
@@ -256,11 +287,13 @@ video.video {
   background-color: #0078d7; /* Blue background color */
   color: white; /* White text color */
   border: none; /* Remove default border */
-  padding: 2vmin 3vmin; /* Padding around the text */
+  /* padding: 2vmin 3vmin; */
+  height: 52px;
   margin-top: 20px;
   font-size: 1rem; /* Font size */
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Font family */
-  border-radius: 5px; /* Rounded corners */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; /* Font family */
+  border-radius: 12px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
   transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
@@ -289,6 +322,7 @@ video.video {
 .tipText {
   font-size: min(3vmin, 1.7rem);
   font-weight: 500;
+  font-size: 16px;
 }
 
 @media (max-width: 450px) {
@@ -300,6 +334,14 @@ video.video {
   }
   .brightnessTips {
     grid-template-columns: 1fr;
+  }
+  #start {
+    width: calc(200px);
+  }
+}
+@media (min-width: 450px) {
+  #start {
+    width: 320px;
   }
 }
 
@@ -371,7 +413,8 @@ video.video {
   box-sizing: border-box;
   border-radius: 50%;
   background: #c0d860;
-  mask: linear-gradient(#0000 0 0) content-box intersect, conic-gradient(#000 var(--a),#0000 0);
+  mask: linear-gradient(#0000 0 0) content-box intersect,
+    conic-gradient(#000 var(--a), #0000 0);
   transform-origin: center;
   position: absolute;
   top: calc(0px - var(--thickness) - (var(--gap) / 4));
@@ -379,22 +422,31 @@ video.video {
 }
 
 #tip3GreenSector::before {
-  content: '';
+  content: "";
   width: var(--width);
   max-width: var(--maxWidth);
   aspect-ratio: 1;
-  background: linear-gradient(203deg, #81C784 0%, #43A047 0%);
+  background: linear-gradient(203deg, #81c784 0%, #43a047 0%);
 }
 
-.justifyMiddle {
+/* .justifyMiddle {
+  padding: 30px 5%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  /*justify-content: space-around;*/
+  justify-content: space-around;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+} */
+.justifyMiddle {
+  padding: 30px 20%;
+
+  @media (max-width: 768px) {
+    /* Adjust the breakpoint as needed */
+    padding: 30px 0;
+  }
 }
 
 [hidden] {
@@ -406,11 +458,11 @@ video.video {
 }
 
 .overlay {
-  opacity: .2;
+  opacity: 0.2;
 }
 
 video[invisible="true"] {
-  visibility: hidden
+  visibility: hidden;
 }
 
 .spinnerCheck {
@@ -460,7 +512,7 @@ video[invisible="true"] {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
   -webkit-animation: draw 8s ease-out forwards;
-          animation: draw 8s ease-out forwards;
+  animation: draw 8s ease-out forwards;
 }
 
 .progress #circle {
@@ -468,7 +520,7 @@ video[invisible="true"] {
   stroke-dasharray: 314;
   stroke-dashoffset: 1000;
   -webkit-animation: spin 3s linear infinite;
-          animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
 }
 
 .ready #circle {
@@ -481,14 +533,14 @@ video[invisible="true"] {
 }
 
 @-webkit-keyframes spin {
-  0% { 
+  0% {
     transform: rotate(0deg);
     stroke-dashoffset: 66;
-  } 
+  }
   50% {
     transform: rotate(540deg);
     stroke-dashoffset: 314;
-  } 
+  }
   100% {
     transform: rotate(1080deg);
     stroke-dashoffset: 66;
@@ -496,14 +548,14 @@ video[invisible="true"] {
 }
 
 @keyframes spin {
-  0% { 
+  0% {
     transform: rotate(0deg);
     stroke-dashoffset: 66;
-  } 
+  }
   50% {
     transform: rotate(540deg);
     stroke-dashoffset: 314;
-  } 
+  }
   100% {
     transform: rotate(1080deg);
     stroke-dashoffset: 66;
