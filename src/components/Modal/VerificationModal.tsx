@@ -14,6 +14,7 @@ const VerificationModal = ({
   verifyImage,
   handleRemoveImage,
   setPopup,
+  popupRef,
 }: InitialViewProps) => {
   const NINDetails = localStorage.getItem("NINDETAILS");
   const isAuthenticated = useIsAuthenticated();

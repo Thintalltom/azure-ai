@@ -53,7 +53,7 @@ const BannerPage = ({
     <div
       // ref={popupRef}
       // bg-[#fbfbfb]  bg-gradient-to-br from-[#fbfbfb] to-[#d8e9fd]
-      className="h-[92vh] pt-[8vh] bg-[#fbfbfb] overflow-hidden "
+      className="h-[calc(100vh-90px)] pt-[90px] bg-[#fbfbfb] overflow-hidden px-[30px] "
       // style={{
       //   background:
       //     "linear-gradient(to top left,#d8e9fd 20vh,#fff 1%, #fbfbfb 100%)",
@@ -81,6 +81,7 @@ const BannerPage = ({
             verifyImage={verifyImage}
             handleRemoveImage={handleRemoveImage}
             setPopup={setPopup}
+            popupRef={popupRef}
           />
         ) : null}
       </div>

@@ -28,7 +28,7 @@ const ResultView = ({
       //   background:
       //     "linear-gradient(to top left,#d8e9fd 20vh,#fff 1%, #fbfbfb 100%)",
       // }}
-      className="  w-full h-full flex items-center justify-center flex-col "
+      className="bg-[#fbfbfb]  w-full h-full flex items-center justify-center flex-col "
     >
       {/* <img
         src={close}
