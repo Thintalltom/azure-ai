@@ -7,24 +7,24 @@ type RetryViewProps = {
   continueFaceLivenessDetector?: () => void;
   returnHome: () => void;
   NinErr: string;
-
+  handleClose: (event: React.MouseEvent) => void;
 };
 
 const RetryView = ({
   errorMessage,
   continueFaceLivenessDetector,
   returnHome,
-
+  handleClose
 
 }: RetryViewProps) => {
   return (
-    <div className="z-[1050] fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-[2px] max-h-[100vh] flex gap-[35px] justify-center items-end md:items-center">
-      <div className="bg-[#FFFFFF] rounded-t-[20px] lg:rounded-[20px] flex flex-col gap-[15px] justify-center relative items-center w-full md:w-[40%] h-[50vh] p-[20px] ">
+    <div onClick={returnHome} className="z-[1050] fixed inset-0 bg-opacity-[50%] bg-black backdrop-blur-[2px] max-h-[100vh] flex gap-[35px] justify-center items-end md:items-center">
+      <div onClick={handleClose} className="bg-[#FFFFFF] rounded-t-[20px] lg:rounded-[20px] flex flex-col gap-[15px] justify-center relative items-center w-full md:w-[40%] h-[50vh] p-[20px] ">
         <img
           src={close}
           onClick={returnHome}
           alt="close"
-          className="cursor-pointer  float-right absolute top-5 right-5"
+          className="cursor-pointer  float-right absolute top-5 right-5 hidden md:block"
         />
         <img src={busted} alt="congrats" className="w-[100px] h-[100px] " />
         {errorMessage && (

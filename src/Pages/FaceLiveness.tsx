@@ -74,8 +74,8 @@ export default function FaceLiveness() {
     setVerifyImage(undefined); // Clear the image
   };
 
-  const handleClose  = (Event: MouseEvent) => {
-    console.log(Event)
+  const handleClose  = (event: React.MouseEvent<any>) => {
+    event.stopPropagation()
   }
 
   return (
@@ -151,7 +151,7 @@ export default function FaceLiveness() {
           continueFaceLivenessDetector={continueFaceLivenessDetector}
           returnHome={returnHome}
           NinErr={NinErr}
-          
+          handleClose={handleClose}
         />
       )}
     </>
